@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class AccountServiceImplTest {
 
     @Autowired
-    @Qualifier("accountService")
+    @Qualifier("accountServiceProxy")
     private AccountService accountService;
 
     @Test
