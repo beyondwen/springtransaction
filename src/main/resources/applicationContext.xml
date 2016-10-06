@@ -26,6 +26,12 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!--注入service-->
+    <bean id="accountService" class="service.impl.AccountServiceImpl">
+        <!--注入dao-->
+        <property name="accountDao" ref="accountDao"/>
+        <property name="transactionTemplate" ref="transactionTemplate"/>
+    </bean>
 
     <!--注入transactionManager-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -37,10 +43,4 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <property name="transactionManager" ref="transactionManager"/>
     </bean>
 
-    <!--注入service-->
-    <bean id="accountService" class="service.impl.AccountServiceImpl">
-        <!--注入dao-->
-        <property name="accountDao" ref="accountDao"/>
-        <property name="transactionTemplate" ref="transactionTemplate"/>
-    </bean>
 </beans>
