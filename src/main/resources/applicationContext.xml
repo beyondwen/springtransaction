@@ -33,7 +33,6 @@
     <bean id="accountService" class="service.impl.AccountServiceImpl">
         <!--注入dao-->
         <property name="accountDao" ref="accountDao"/>
-        <property name="transactionTemplate" ref="transactionTemplate"/>
     </bean>
 
     <!--注入transactionManager-->
@@ -42,8 +41,16 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
-        <property name="transactionManager" ref="transactionManager"/>
-    </bean>
+    <!--增强-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="transfer"/>
+        </tx:attributes>
+    </tx:advice>
 
+    <!--aop-->
+    <aop:config>
+        <aop:pointcut id="mypointcut" expression="execution(* service.impl.AccountServiceImpl.transfer(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="mypointcut"/>
+    </aop:config>
 </beans>

@@ -24,14 +24,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public void transfer(final String from, final String to, final Double money) {
-        transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(TransactionStatus status) {
-                accountDao.transferOut(from, money);
-                //int i = 1 / 0;
-                accountDao.transferIn(to, money);
-            }
-        });
+        accountDao.transferOut(from, money);
+        //int i = 1 / 0;
+        accountDao.transferIn(to, money);
     }
 }
 
